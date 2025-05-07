@@ -1,0 +1,63 @@
+$border-color: black;
+$background-color: white;
+$gap-size: 20px;
+$padding-size: 8px;
+
+body {
+    padding-left: 30px;
+    font-family: Arial, sans-serif;
+    
+    h1 {
+        font-weight: normal;
+    }
+
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: $gap-size;
+    width: 500px;
+    height: 200px;
+}
+
+table {
+    width: 45%;
+    border-collapse: collapse;
+    margin: $gap-size 0;
+
+
+    th, td {
+        border: 1px solid $border-color;
+        padding: $padding-size;
+        text-align: center;
+    }
+
+    th {
+        background-color: grey;
+    }
+}
+
+button {
+    cursor: pointer;
+}
+
+#forma {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $border-color;
+    width: 500px;
+    height: 200px;
+
+    input {
+        border: none;
+        border-bottom: 1px solid $border-color;
+        background-color: $background-color;
+    }
+
+    #submitBtn {
+        margin-top: auto;
+        align-self: flex-end;
+        width: 50px;
+        height: 30px;
+    }
+}
