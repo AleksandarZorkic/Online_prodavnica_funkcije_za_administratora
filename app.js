@@ -49,11 +49,18 @@ function displayProductDetails(artikal) {
   }
 
 function initializeProducts() {
-    artikli = [
-        new Artikal("Monitor", 165, "Monitor XVision 27Q je elegantan 27-inčni ekran sa QHD rezolucijom (2560x1440), idealan za svakodnevni rad, gejming i multimediju."),
-        new Artikal("TV", 650, "Samsung Crystal UHD 55CU8002 je moderan 55-inčni pametni televizor sa 4K rezolucijom koji nudi izuzetno oštru sliku i bogat spektar boja zahvaljujući Crystal Processor 4K tehnologiji."),
-        new Artikal("Mis", 20, "LogiX M720 je ergonomski bežični miš dizajniran za udobnost tokom celodnevnog rada.")
-    ]
+
+    const raw = localStorage.getItem("artikli");
+    if (raw) {
+        artikli = JSON.parse(raw).map(o => new Artikal(o.naziv, o.cena, o.opis));
+    } else {
+        artikli = [
+            new Artikal("Monitor", 165, "Monitor XVision 27Q je elegantan 27-inčni ekran sa QHD rezolucijom (2560x1440), idealan za svakodnevni rad, gejming i multimediju."),
+            new Artikal("TV", 650, "Samsung Crystal UHD 55CU8002 je moderan 55-inčni pametni televizor sa 4K rezolucijom koji nudi izuzetno oštru sliku i bogat spektar boja zahvaljujući Crystal Processor 4K tehnologiji."),
+            new Artikal("Mis", 20, "LogiX M720 je ergonomski bežični miš dizajniran za udobnost tokom celodnevnog rada.")
+        ]
+        localStorage.setItem("artikli", JSON.stringify(artikli));
+    }
 
     createProductRows(artikli)
     handleFormSubmission(artikli)
@@ -71,13 +78,15 @@ function handleFormSubmission(artikli) {
         const cena = formData.get("cena")
         const opis = formData.get("opis")
 
-        for (let i = 0; artikli.length; i++) {
-            if (naziv === artikli[i].name)
+        for (let i = 0; i < artikli.length; i++) {
+            if (naziv === artikli[i].naziv)
                 return
         }
 
         const noviArtikal = new Artikal(naziv, cena, opis)
         artikli.push(noviArtikal)
+
+        localStorage.setItem("artikli", JSON.stringify(artikli))
 
         createProductRows(artikli)
     })
